@@ -1,5 +1,8 @@
+using System;
+
 namespace CovidSimulator
 {
+    [Obsolete("ConnectionType is deprecated. No longer needed with new People class.")]
     public enum ConnectionType
     {
         Close, // No restriction 
@@ -7,6 +10,7 @@ namespace CovidSimulator
         Far
     }
 
+    [Obsolete("ConnectionValues is deprecated. No longer needed with new People class.")]
     public class ConnectionValues
     {
         public static readonly double[] InfectionRates = {1, 0.31, 0.01};

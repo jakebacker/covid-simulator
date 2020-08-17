@@ -3,6 +3,7 @@ using System.Collections;
 
 namespace CovidSimulator
 {
+    [Obsolete("Person is deprecated. Will be replaced with something else")]
     public class Person
     {
         private String _name;

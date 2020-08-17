@@ -2,6 +2,7 @@ using System;
 
 namespace CovidSimulator
 {
+    [Obsolete("Connection is deprecated. No longer needed with new People class.")]
     public class Connection
     {
 

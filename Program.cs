@@ -14,6 +14,7 @@ using System.Collections;
 
 namespace CovidSimulator
 {
+    // TODO: Rewrite all of this. Break it out into more methods. Make it more modular.
     class Program
     {
 
