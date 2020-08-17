@@ -54,6 +54,32 @@ namespace CovidSimulator
 
         /**
          * <summary>
+         * Add the person <paramref name="p"/> to the list of people at index <paramref name="i"/>
+         * </summary>
+         *
+         * <param name="i">The index to add the person at</param>
+         * <param name="p">The person to add</param>
+         */
+        public void AddPerson(int i, Person p)
+        {
+            _persons[i] = p;
+        }
+
+        /**
+         * <summary>
+         * Get the person at the index <paramref name="i"/>
+         * </summary>
+         *
+         * <param name="i">The index of the person</param>
+         * <returns>The Person requested</returns>
+         */
+        public Person GetPerson(int i)
+        {
+            return _persons[i];
+        }
+
+        /**
+         * <summary>
          * Confirms that the person <paramref name="v"/> exists in the graph.
          * </summary>
          *
