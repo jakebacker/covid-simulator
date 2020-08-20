@@ -12,7 +12,11 @@ namespace CovidSimulator
      * */
     public class People
     {
+        /**
+         * The number of people in the graph
+         */
         private readonly int _v;
+        
         private int _e = 0;
         private ConcurrentBag<ConnEdge>[] _adj;
         private Person[] _persons;

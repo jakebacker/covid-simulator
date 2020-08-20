@@ -6,13 +6,13 @@ namespace CovidSimulator
     public class Connection
     {
 
-        private Person personOne;
-        private Person personTwo;
+        private PersonOld personOne;
+        private PersonOld personTwo;
         private ConnectionType type;
 
-        public Connection(Person personOne, Person personTwo, ConnectionType type)
+        public Connection(PersonOld personOldOne, PersonOld personTwo, ConnectionType type)
         {
-            this.personOne = personOne;
+            this.personOne = personOldOne;
             this.personTwo = personTwo;
             this.type = type;
         }
@@ -34,7 +34,7 @@ namespace CovidSimulator
             personTwo.RemoveConnection(this);
         }
 
-        public Person GetOtherPerson()
+        public PersonOld GetOtherPerson()
         {
             return personTwo;
         }

@@ -9,7 +9,7 @@ using System.Collections;
  * Input people in a better way
  * Generate random people arrangements
  * Consider models other than SIR
- * Symptom tracking
+ * Symptom tracking -> Random symptoms that onset at different times with different severities
  */
 
 namespace CovidSimulator
@@ -48,35 +48,35 @@ namespace CovidSimulator
 
                 people = new ArrayList();
 
-                Person person0 = new Person("Person0");
-                Person person1 = new Person("Person1");
-                Person person2 = new Person("Person2");
-                Person person3 = new Person("Person3");
-                Person person4 = new Person("Person4");
-                Person[] residence1 = {person0, person1, person2, person3, person4};
+                PersonOld person0 = new PersonOld("Person0");
+                PersonOld person1 = new PersonOld("Person1");
+                PersonOld person2 = new PersonOld("Person2");
+                PersonOld person3 = new PersonOld("Person3");
+                PersonOld person4 = new PersonOld("Person4");
+                PersonOld[] residence1 = {person0, person1, person2, person3, person4};
 
-                Person person5 = new Person("Person5");
-                Person person6 = new Person("Person6");
-                Person person7 = new Person("Person7");
-                Person person8 = new Person("Person8");
-                Person person9 = new Person("Person9");
-                Person[] residence2 = {person5, person6, person7, person8, person9};
+                PersonOld person5 = new PersonOld("Person5");
+                PersonOld person6 = new PersonOld("Person6");
+                PersonOld person7 = new PersonOld("Person7");
+                PersonOld person8 = new PersonOld("Person8");
+                PersonOld person9 = new PersonOld("Person9");
+                PersonOld[] residence2 = {person5, person6, person7, person8, person9};
 
-                Person person10 = new Person("Person10");
-                Person person11 = new Person("Person11");
-                Person person12 = new Person("Person12");
-                Person person13 = new Person("Person13");
-                Person person14 = new Person("Person14");
-                Person[] residence3 = {person10, person11, person12, person13, person14};
+                PersonOld person10 = new PersonOld("Person10");
+                PersonOld person11 = new PersonOld("Person11");
+                PersonOld person12 = new PersonOld("Person12");
+                PersonOld person13 = new PersonOld("Person13");
+                PersonOld person14 = new PersonOld("Person14");
+                PersonOld[] residence3 = {person10, person11, person12, person13, person14};
 
-                Person person15 = new Person("Person15");
-                Person person16 = new Person("Person16");
-                Person person17 = new Person("Person17");
-                Person[] residence4 = {person15, person16, person17};
+                PersonOld person15 = new PersonOld("Person15");
+                PersonOld person16 = new PersonOld("Person16");
+                PersonOld person17 = new PersonOld("Person17");
+                PersonOld[] residence4 = {person15, person16, person17};
 
-                Person person18 = new Person("Person18");
+                PersonOld person18 = new PersonOld("Person18");
 
-                Person[] friendGroup =
+                PersonOld[] friendGroup =
                 {
                     person0, person5, person6, person7, person8, person9, person10, person11, person12, person13, person14, person15, person16,
                     person17, person18
@@ -127,7 +127,7 @@ namespace CovidSimulator
 
                 int randPerson = Rand.Next(0, people.Count);
 
-                Person infectedPerson = (Person)people[randPerson];
+                PersonOld infectedPerson = (PersonOld)people[randPerson];
                 
                 infectedPerson.Infect();
 
@@ -142,7 +142,7 @@ namespace CovidSimulator
                     Program.DebugPrint("There are " + Infected + " active infections.");
 
                     // Everyone gets tested
-                    foreach (Person person in people)
+                    foreach (PersonOld person in people)
                     {
                         if (person.WillQuarantine()) // 1 day turn around for testing
                         {
@@ -177,7 +177,7 @@ namespace CovidSimulator
                         }
                     }
 
-                    foreach (Person person in people)
+                    foreach (PersonOld person in people)
                     {
                         if (!person.IsInfected()) continue;
 
@@ -216,11 +216,11 @@ namespace CovidSimulator
             Console.WriteLine("Average Total Infected: " + infectedSum / NumSims + "/" + people.Count);
         }
 
-        private static void ResidenceConnections(Person[] residence)
+        private static void ResidenceConnections(PersonOld[] residence)
         {
-            foreach (Person p1 in residence)
+            foreach (PersonOld p1 in residence)
             {
-                foreach (Person p2 in residence)
+                foreach (PersonOld p2 in residence)
                 {
                     if (p1 != p2)
                     {
@@ -230,11 +230,11 @@ namespace CovidSimulator
             }
         }
 
-        private static void FriendConnections(Person[] friendGroup)
+        private static void FriendConnections(PersonOld[] friendGroup)
         {
-            foreach (Person p1 in friendGroup)
+            foreach (PersonOld p1 in friendGroup)
             {
-                foreach (Person p2 in friendGroup)
+                foreach (PersonOld p2 in friendGroup)
                 {
                     if (p1 != p2)
                     {
