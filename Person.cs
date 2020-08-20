@@ -123,8 +123,8 @@ namespace CovidSimulator
             if (_status == InfectedStatus.Susceptible)
             {
                 Program.DebugPrint(_name + " was infected");
-                Program.Infected++;
-                Program.TotalInfected++;
+                //Program.Infected++;
+                //Program.TotalInfected++;
                 _status = InfectedStatus.Infected;
                 UpdateInfectionDay();
             }
@@ -137,7 +137,7 @@ namespace CovidSimulator
          */
         public void Recover()
         {
-            Program.Infected--;
+            //Program.Infected--;
             Program.DebugPrint(_name + " recovered");
             _status = InfectedStatus.Recovered;
         }
