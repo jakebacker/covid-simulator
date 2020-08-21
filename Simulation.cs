@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+
 namespace CovidSimulator
 {
     /**
@@ -56,9 +59,17 @@ namespace CovidSimulator
             while (_currentInfections > 0)
             {
                 // This is definitely not the fastest way, but it makes it more modular and such.
-                ProcQuarantine();
-                ProcTest();
-                ProcInfectedTasks();
+                try
+                {
+                    ProcQuarantine();
+                    ProcTest();
+                    ProcInfectedTasks();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                    return false;
+                }
             }
 
             return true;
@@ -69,9 +80,20 @@ namespace CovidSimulator
          * Check everyone to see if they need to quarantine. If they do, remove all connections.
          * </summary>
          */
-        private void ProcQuarantine()
+        private void ProcQuarantine() 
         {
-            
+            for (var p = 0; p < _graph.NumPeople(); p++)
+            {
+                Person person = _graph.GetPerson(p);
+
+                if (person.WillQuarantine())
+                {
+                    foreach (ConnEdge connection in _graph.GetConns(p))
+                    {
+                        _graph.RemoveConnection(connection);
+                    }
+                }
+            }
         }
 
         /**

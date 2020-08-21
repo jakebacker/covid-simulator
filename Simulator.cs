@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -53,7 +54,11 @@ namespace CovidSimulator
 
                 bool result = sim.RunSimulation();
 
-                if (!result) return false;
+                if (!result)
+                {
+                    Console.WriteLine("Simulation Failed! Returning...");
+                    return false;
+                }
             }
             
             return true;

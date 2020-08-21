@@ -18,7 +18,7 @@ namespace CovidSimulator
         private readonly int _v;
         
         private int _e = 0;
-        private ConcurrentBag<ConnEdge>[] _adj;
+        private List<ConnEdge>[] _adj;
         private Person[] _persons;
 
         /**
@@ -34,11 +34,11 @@ namespace CovidSimulator
             if (V < 0) throw new ArgumentException("Number of people must be non-negative");
 
             _v = V;
-            _adj = new ConcurrentBag<ConnEdge>[V];
+            _adj = new List<ConnEdge>[V];
             _persons = new Person[V];
             for (var v = 0; v < V; v++)
             {
-                _adj[v] = new ConcurrentBag<ConnEdge>();
+                _adj[v] = new List<ConnEdge>();
             }
         }
 
@@ -120,17 +120,75 @@ namespace CovidSimulator
 
         /**
          * <summary>
+         * Removes a connection and it's opposite from the graph.
+         *
+         * This is absolutely gross right now and needs to be fixed
+         * </summary>
+         *
+         * <param name="e">The connection to remove</param>
+         */
+        public void RemoveConnection(ConnEdge e)
+        {
+            int v = e.Either();
+            int w = e.Other(v);
+            ValidatePerson(v);
+            ValidatePerson(w);
+
+            ConnEdge removeMeV = null; // TODO: This is gross. Please fix
+            
+            foreach (ConnEdge ed in _adj[v])
+            {
+                if (ed.Either() == v && ed.Other(v) == w)
+                {
+                    removeMeV = ed;
+                } else if (ed.Either() == w && ed.Other(w) == v)
+                {
+                    removeMeV = ed;
+                }
+            }
+
+            if (removeMeV == null)
+            {
+                throw new Exception("Something Broke! removeMeV is null. This should not happen");
+            }
+
+            _adj[v].Remove(removeMeV);
+
+            ConnEdge removeMeW = null;
+
+            foreach (ConnEdge ed in _adj[w])
+            {
+                if (ed.Either() == v && ed.Other(v) == w)
+                {
+                    removeMeW = ed;
+                } else if (ed.Either() == w && ed.Other(w) == v)
+                {
+                    removeMeW = ed;
+                }
+            }
+
+            if (removeMeW == null)
+            {
+                throw new Exception("Something Broke! removeMeV is null. This should not happen");
+            }
+
+            _adj[w].Remove(removeMeW);
+        }
+
+        /**
+         * <summary>
          * Returns the connections from the person <paramref name="v"/>
          * </summary>
          *
          * <param name="v">The person</param>
-         * <returns>The connections this person has as an IEnumerator</returns>
+         * <returns>The connections this person has as an array</returns>
          * <exception cref="ArgumentException">Thrown unless <code>0 &lt;= v &lt; V</code></exception>
          */
-        public IEnumerator<ConnEdge> GetConns(int v)
+        public ConnEdge[] GetConns(int v)
         {
             ValidatePerson(v);
-            return _adj[v].GetEnumerator();
+            
+            return _adj[v].ToArray();
         }
     }
 }
