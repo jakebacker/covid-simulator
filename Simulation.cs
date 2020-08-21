@@ -8,9 +8,24 @@ namespace CovidSimulator
      */
     public class Simulation
     {
-        public Simulation()
+        private People _graph;
+        
+        public Simulation(People graph)
         {
-            
+            _graph = graph;
+        }
+
+        /**
+         * <summary>
+         * Run a simulation based on this object.
+         * </summary>
+         *
+         * <returns>True if the simulation was successful</returns>
+         */
+        public bool RunSimulation()
+        {
+
+            return true;
         }
     }
 }
