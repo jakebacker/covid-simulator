@@ -16,6 +16,8 @@ namespace CovidSimulator
         private int _currentInfections = 0;
         private int _totalInfections = 0;
         private int _maxInfections = 0;
+
+        private int _simulationDay = 1;
         
         public Simulation(People graph)
         {
@@ -64,6 +66,7 @@ namespace CovidSimulator
                     ProcQuarantine();
                     ProcTest();
                     ProcInfectedTasks();
+                    _simulationDay++;
                 }
                 catch (Exception e)
                 {
@@ -103,7 +106,26 @@ namespace CovidSimulator
          */
         private void ProcTest()
         {
-            
+            for (var p = 0; p < _graph.NumPeople(); p++)
+            {
+                Person person = _graph.GetPerson(p);
+
+                if ((_simulationDay + person.GetTestDay()) % 7 == 0)
+                {
+                    if (person.IsInfected())
+                    {
+                        double num = Program.Rand.NextDouble();
+
+                        if (num <= CovidStatsConfig.FalseNegativeRates[person.GetInfectionDay()])
+                        {
+                            Program.DebugPrint(person.GetName() + " got a false negative.");
+                            continue;
+                        }
+                        
+                        person.Quarantine();
+                    }
+                }
+            }
         }
 
         /**
@@ -113,8 +135,13 @@ namespace CovidSimulator
          */
         private void ProcInfectedTasks()
         {
-            ProcInfectOthers();
-            ProcUpdateInfection();
+            for (var p = 0; p < _graph.NumPeople(); p++)
+            {
+                Person person = _graph.GetPerson(p);
+                
+                ProcInfectOthers(person);
+                ProcUpdateInfection(person);
+            }
         }
 
         /**
@@ -122,7 +149,7 @@ namespace CovidSimulator
          * For everyone who is infected, try and infect all connections based on weights.
          * </summary>
          */
-        private void ProcInfectOthers()
+        private void ProcInfectOthers(Person p)
         {
             
         }
@@ -132,9 +159,14 @@ namespace CovidSimulator
          * For everyone who is infected, update their infection day count. If it is at the limit, make them recover.
          * </summary>
          */
-        private void ProcUpdateInfection()
+        private void ProcUpdateInfection(Person p)
         {
-            
+            p.UpdateInfectionDay();
+            if (p.GetInfectionDay() >= CovidStatsConfig.AverageLength)
+            {
+                p.Recover();
+                _currentInfections--;
+            }
         }
 
     }

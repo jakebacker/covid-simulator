@@ -137,7 +137,6 @@ namespace CovidSimulator
          */
         public void Recover()
         {
-            //Program.Infected--;
             Program.DebugPrint(_name + " recovered");
             _status = InfectedStatus.Recovered;
         }
