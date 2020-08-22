@@ -65,7 +65,8 @@ namespace CovidSimulator
                 {
                     ProcQuarantine();
                     ProcTest();
-                    ProcInfectedTasks();
+                    ProcInfectOthers();
+                    ProcUpdateInfection();
                     _simulationDay++;
                 }
                 catch (Exception e)
@@ -130,28 +131,32 @@ namespace CovidSimulator
 
         /**
          * <summary>
-         * Wrapper for <see cref="ProcInfectOthers"/> and <see cref="ProcUpdateInfection"/>
+         * For everyone who is infected, try and infect all connections based on weights.
          * </summary>
          */
-        private void ProcInfectedTasks()
+        private void ProcInfectOthers()
         {
             for (var p = 0; p < _graph.NumPeople(); p++)
             {
                 Person person = _graph.GetPerson(p);
-                
-                ProcInfectOthers(person);
-                ProcUpdateInfection(person);
-            }
-        }
 
-        /**
-         * <summary>
-         * For everyone who is infected, try and infect all connections based on weights.
-         * </summary>
-         */
-        private void ProcInfectOthers(Person p)
-        {
-            
+                if (person.IsInfected())
+                {
+                    ConnEdge[] conns = _graph.GetConns(p);
+
+                    foreach (ConnEdge c in conns)
+                    {
+                        double num = Program.Rand.NextDouble();
+
+                        double infectRate = CovidStatsConfig.InfectionRate * c.Weight;
+
+                        if (num <= infectRate)
+                        {
+                            _graph.GetPerson(c.Other(p)).Infect();
+                        }
+                    }
+                }
+            }
         }
 
         /**
@@ -159,13 +164,17 @@ namespace CovidSimulator
          * For everyone who is infected, update their infection day count. If it is at the limit, make them recover.
          * </summary>
          */
-        private void ProcUpdateInfection(Person p)
+        private void ProcUpdateInfection()
         {
-            p.UpdateInfectionDay();
-            if (p.GetInfectionDay() >= CovidStatsConfig.AverageLength)
+            for (var p = 0; p < _graph.NumPeople(); p++)
             {
-                p.Recover();
-                _currentInfections--;
+                Person person = _graph.GetPerson(p);
+                person.UpdateInfectionDay();
+                if (person.GetInfectionDay() >= CovidStatsConfig.AverageLength)
+                {
+                    person.Recover();
+                    _currentInfections--;
+                }
             }
         }
 
