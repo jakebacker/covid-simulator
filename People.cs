@@ -42,6 +42,14 @@ namespace CovidSimulator
             }
         }
 
+        public People(Person[] peopleArr) : this(peopleArr.Length)
+        {
+            for (var i = 0; i < peopleArr.Length; i++)
+            {
+                AddPerson(i, peopleArr[i]);
+            }
+        }
+
         /**
          * <summary>
          * Returns the number of people in the graph.
@@ -64,7 +72,7 @@ namespace CovidSimulator
          * <param name="i">The index to add the person at</param>
          * <param name="p">The person to add</param>
          */
-        public void AddPerson(int i, Person p)
+        private void AddPerson(int i, Person p)
         {
             _persons[i] = p;
         }
@@ -189,6 +197,23 @@ namespace CovidSimulator
             ValidatePerson(v);
             
             return _adj[v].ToArray();
+        }
+
+        public static ConnEdge[] ResidenceConnections(int[] residence)
+        {
+            List<ConnEdge> arr = new List<ConnEdge>();
+            foreach (int p1 in residence)
+            {
+                foreach (int p2 in residence)
+                {
+                    if (p1 != p2)
+                    {
+                        arr.Add(new ConnEdge(p1, p2, ConnectionValues.Close));
+                    }
+                }
+            }
+
+            return arr.ToArray();
         }
     }
 }

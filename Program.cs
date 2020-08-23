@@ -20,11 +20,13 @@ namespace CovidSimulator
 
         public static readonly Random Rand = new Random();
 
-        private const bool Debug = false;
+        private const bool Debug = true;
 
         static void Main(string[] args)
         {
-           
+           Simulator simulator = new Simulator();
+
+           simulator.RunSimulations(100);
         }
 
         public static void DebugPrint(Object message)
