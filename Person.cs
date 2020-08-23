@@ -29,7 +29,7 @@ namespace CovidSimulator
          * <param name="status">The optional infection status of the person</param>
          * <param name="covidLength">The length the person has had covid</param>
          */
-        public Person(String name, InfectedStatus status=InfectedStatus.Susceptible, int covidLength=-1)
+        public Person(String name, InfectedStatus status=InfectedStatus.Susceptible, int covidLength=0)
         {
             _name = name;
             _status = status;
@@ -47,7 +47,7 @@ namespace CovidSimulator
          * <param name="status">The optional infection status of the person</param>
          * <param name="covidLength">The length the person has had covid</param>
          */
-        public Person(String name, int testDay, InfectedStatus status=InfectedStatus.Susceptible, int covidLength=-1)
+        public Person(String name, int testDay, InfectedStatus status=InfectedStatus.Susceptible, int covidLength=0)
         {
             _name = name;
             _status = status;
@@ -102,6 +102,15 @@ namespace CovidSimulator
         }
 
         /**
+         * <summary>Returns whether this Person is currently susceptible</summary>
+         * <returns>True if this person is currently susceptible, false otherwise.</returns>
+         */
+        public bool IsSusceptible()
+        {
+            return _status == InfectedStatus.Susceptible;
+        }
+
+        /**
          * <summary>
          * Returns whether this Person is currently infected
          * </summary>
@@ -123,8 +132,6 @@ namespace CovidSimulator
             if (_status == InfectedStatus.Susceptible)
             {
                 Program.DebugPrint(_name + " was infected");
-                //Program.Infected++;
-                //Program.TotalInfected++;
                 _status = InfectedStatus.Infected;
                 UpdateInfectionDay();
             }

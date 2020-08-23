@@ -27,6 +27,7 @@ namespace CovidSimulator
            Simulator simulator = new Simulator();
 
            simulator.RunSimulations(100);
+           simulator.DisplayResults();
         }
 
         public static void DebugPrint(Object message)

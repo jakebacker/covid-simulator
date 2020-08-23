@@ -152,7 +152,14 @@ namespace CovidSimulator
 
                         if (num <= infectRate)
                         {
-                            _graph.GetPerson(c.Other(p)).Infect();
+                            Person otherPerson = _graph.GetPerson(c.Other(p));
+                            if (otherPerson.IsSusceptible())
+                            {
+                                otherPerson.Infect();
+                                _currentInfections++;
+                                _totalInfections++;
+                                if (_currentInfections > _maxInfections) _maxInfections = _currentInfections;
+                            }
                         }
                     }
                 }
@@ -176,6 +183,24 @@ namespace CovidSimulator
                     _currentInfections--;
                 }
             }
+        }
+
+        /**
+         * <summary>Returns the total number of people infected throughout this simulation</summary>
+         * <returns>The total number of people infected throughout the simulation.</returns>
+         */
+        public int GetTotalInfections()
+        {
+            return _totalInfections;
+        }
+
+        /**
+         * <summary>Returns the current day of the simulation</summary>
+         * <returns>The current day of the simulation</returns>
+         */
+        public int GetSimulationDay()
+        {
+            return _simulationDay;
         }
 
     }

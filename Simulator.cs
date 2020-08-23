@@ -128,7 +128,30 @@ namespace CovidSimulator
                 }
             }
             
+            Console.WriteLine("Simulations Complete.");
+            
             return true;
+        }
+
+        /**
+         * <summary>Prints the results of the simulations to the console</summary>
+         */
+        public void DisplayResults()
+        {
+            double averageTotalInfections = 0;
+            double averageSimLength = 0;
+            
+            foreach (Simulation s in simulations)
+            {
+                averageTotalInfections += s.GetTotalInfections();
+                averageSimLength += s.GetSimulationDay();
+            }
+
+            averageTotalInfections /= simulations.Count;
+            averageSimLength /= simulations.Count;
+
+            Console.WriteLine("Average Total Infections: " + averageTotalInfections);
+            Console.WriteLine("Average Simulation Length: " + averageSimLength);
         }
 
     }
