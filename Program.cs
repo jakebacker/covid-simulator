@@ -3,8 +3,8 @@ using System.Collections;
 
 /*
  * TODO:
- * Restructure all the code. Make it not jank
- * Visualize the data much better, allowing for more data
+ * Store data in a serialized way so that it can be exported
+ * Visualize the data much better, allowing for more data. Do this separately using the exported data.
  * Investigate https://rt.live/ more
  * Input people in a better way
  * Generate random people arrangements

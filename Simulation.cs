@@ -165,7 +165,7 @@ namespace CovidSimulator
                 }
             }
         }
-
+    
         /**
          * <summary>
          * For everyone who is infected, update their infection day count. If it is at the limit, make them recover.
