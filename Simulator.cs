@@ -162,12 +162,30 @@ namespace CovidSimulator
             Console.WriteLine("Average Simulation Length: " + averageSimLength);
         }
 
+        public void DisplayResults(int farPerson)
+        {
+            DisplayResults();
+
+            int num = 0;
+
+            foreach (Simulation s in simulations)
+            {
+                if (s.GetSimulationData().FurthestPerson <= farPerson)
+                {
+                    num++;
+                }
+            }
+
+            Console.WriteLine(num + " simulations reached person " + farPerson);
+        }
+
         /**
          * <summary>Write the data from the simulations to a file</summary>
          * <param name="output">The output file location</param>
          */
         public void WriteData(String output)
         {
+            Console.WriteLine("Writing all simulation data to file at " + output);
             List<SimulationData> dataList = new List<SimulationData>();
 
             foreach (Simulation s in simulations)
@@ -180,7 +198,8 @@ namespace CovidSimulator
             var xmls = new XmlSerializer(typeof(SimulationData[]));
             
             xmls.Serialize(new XmlTextWriter(output, Encoding.UTF8), dataArr);
-            
+
+            Console.WriteLine("Data exported");
         }
 
     }

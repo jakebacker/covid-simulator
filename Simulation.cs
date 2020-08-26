@@ -24,6 +24,7 @@ namespace CovidSimulator
             data.CurrentInfections = FindInfections();
             data.TotalInfections = data.CurrentInfections;
             data.MaxInfections = data.CurrentInfections;
+            data.FurthestPerson = _graph.NumPeople();
         }
 
         /**
@@ -153,6 +154,11 @@ namespace CovidSimulator
                             Person otherPerson = _graph.GetPerson(c.Other(p));
                             if (otherPerson.IsSusceptible())
                             {
+                                if (c.Other(p) < data.FurthestPerson)
+                                {
+                                    data.FurthestPerson = c.Other(p);
+                                }
+
                                 otherPerson.Infect();
                                 data.CurrentInfections++;
                                 data.TotalInfections++;

@@ -3,13 +3,13 @@ using System.Collections;
 
 /*
  * TODO:
- * Visualize the data much better, allowing for more data. Do this separately using the exported data.
- * Investigate https://rt.live/ more
+ * Symptom tracking -> Random symptoms that onset at different times with different severities
+ * Random non-compliance to rules
  * Input people in a better way
  * Generate random people arrangements
  * Consider models other than SIR
- * Symptom tracking -> Random symptoms that onset at different times with different severities
- * Random non-compliance to rules
+ * Visualize the data much better, allowing for more data. Do this separately using the exported data.
+ * Investigate https://rt.live/ more
  */
 
 namespace CovidSimulator
@@ -26,8 +26,8 @@ namespace CovidSimulator
         {
            Simulator simulator = new Simulator();
 
-           simulator.RunSimulations(100);
-           simulator.DisplayResults();
+           simulator.RunSimulations(10000);
+           simulator.DisplayResults(0);
            simulator.WriteData(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\data.xml"); // Currently just writing to the desktop because it's easier
         }
 
