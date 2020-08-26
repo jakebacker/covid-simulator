@@ -63,11 +63,13 @@ namespace CovidSimulator
             int[] residence4 = {15, 16, 17};
 
             Person person18 = new Person("Person18");
+            
+            Person person19 = new Person("Person19");
 
             Person[] peopleArr =
             {
                 person0, person1, person2, person3, person4, person5, person6, person7, person8, person9, person10, person11, person12, person13, person14, person15, person16,
-                person17, person18
+                person17, person18, person19
             }; 
             
             People people = new People(peopleArr);
@@ -98,6 +100,8 @@ namespace CovidSimulator
             people.AddConnection(new ConnEdge(6, 10, ConnectionValues.Medium));
             people.AddConnection(new ConnEdge(14, 15, ConnectionValues.Medium));
             people.AddConnection(new ConnEdge(16, 18, ConnectionValues.Medium));
+            
+            people.AddConnection(new ConnEdge(7, 19, ConnectionValues.Medium));
             
             person18.Infect();
             
