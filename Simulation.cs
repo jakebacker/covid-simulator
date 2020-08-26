@@ -13,19 +13,17 @@ namespace CovidSimulator
     {
         private People _graph;
 
-        private int _currentInfections = 0;
-        private int _totalInfections = 0;
-        private int _maxInfections = 0;
-
-        private int _simulationDay = 1;
+        private SimulationData data;
         
         public Simulation(People graph)
         {
             _graph = graph;
+            
+            data = new SimulationData();
 
-            _currentInfections = FindInfections();
-            _totalInfections = _currentInfections;
-            _maxInfections = _currentInfections;
+            data.CurrentInfections = FindInfections();
+            data.TotalInfections = data.CurrentInfections;
+            data.MaxInfections = data.CurrentInfections;
         }
 
         /**
@@ -58,7 +56,7 @@ namespace CovidSimulator
          */
         public bool RunSimulation()
         {
-            while (_currentInfections > 0)
+            while (data.CurrentInfections > 0)
             {
                 // This is definitely not the fastest way, but it makes it more modular and such.
                 try
@@ -67,7 +65,7 @@ namespace CovidSimulator
                     ProcTest();
                     ProcInfectOthers();
                     ProcUpdateInfection();
-                    _simulationDay++;
+                    data.SimulationDay++;
                 }
                 catch (Exception e)
                 {
@@ -111,7 +109,7 @@ namespace CovidSimulator
             {
                 Person person = _graph.GetPerson(p);
 
-                if ((_simulationDay + person.GetTestDay()) % 7 == 0)
+                if ((data.SimulationDay + person.GetTestDay()) % 7 == 0)
                 {
                     if (person.IsInfected())
                     {
@@ -156,9 +154,9 @@ namespace CovidSimulator
                             if (otherPerson.IsSusceptible())
                             {
                                 otherPerson.Infect();
-                                _currentInfections++;
-                                _totalInfections++;
-                                if (_currentInfections > _maxInfections) _maxInfections = _currentInfections;
+                                data.CurrentInfections++;
+                                data.TotalInfections++;
+                                if (data.CurrentInfections > data.MaxInfections) data.MaxInfections = data.CurrentInfections;
                             }
                         }
                     }
@@ -180,7 +178,7 @@ namespace CovidSimulator
                 if (person.GetInfectionDay() >= CovidStatsConfig.AverageLength)
                 {
                     person.Recover();
-                    _currentInfections--;
+                    data.CurrentInfections--;
                 }
             }
         }
@@ -191,7 +189,7 @@ namespace CovidSimulator
          */
         public int GetTotalInfections()
         {
-            return _totalInfections;
+            return data.TotalInfections;
         }
 
         /**
@@ -200,7 +198,16 @@ namespace CovidSimulator
          */
         public int GetSimulationDay()
         {
-            return _simulationDay;
+            return data.SimulationDay;
+        }
+
+        /**
+         * <summary>Returns the data of this simulation</summary>
+         * <returns>The data of this simulation</returns>
+         */
+        public SimulationData GetSimulationData()
+        {
+            return data;
         }
 
     }

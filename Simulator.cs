@@ -1,6 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
+using System.Text.Json;
+using System.Xml;
+using System.Xml.Serialization;
 
 namespace CovidSimulator
 {
@@ -152,6 +156,27 @@ namespace CovidSimulator
 
             Console.WriteLine("Average Total Infections: " + averageTotalInfections);
             Console.WriteLine("Average Simulation Length: " + averageSimLength);
+        }
+
+        /**
+         * <summary>Write the data from the simulations to a file</summary>
+         * <param name="output">The output file location</param>
+         */
+        public void WriteData(String output)
+        {
+            List<SimulationData> dataList = new List<SimulationData>();
+
+            foreach (Simulation s in simulations)
+            {
+                dataList.Add(s.GetSimulationData());
+            }
+
+            SimulationData[] dataArr = dataList.ToArray();
+
+            var xmls = new XmlSerializer(typeof(SimulationData[]));
+            
+            xmls.Serialize(new XmlTextWriter(output, Encoding.UTF8), dataArr);
+            
         }
 
     }
