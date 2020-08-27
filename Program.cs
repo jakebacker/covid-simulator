@@ -8,7 +8,6 @@ using CovidSimulator.Simulation;
  * Random non-compliance to rules
  * Input people in a better way
  * Generate random people arrangements
- * Consider models other than SIR
  * Visualize the data much better, allowing for more data. Do this separately using the exported data.
  * Investigate https://rt.live/ more
  */
