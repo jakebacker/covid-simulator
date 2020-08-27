@@ -1,12 +1,10 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Text;
-using System.Text.Json;
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace CovidSimulator
+namespace CovidSimulator.Simulation
 {
     /**
      * <summary>

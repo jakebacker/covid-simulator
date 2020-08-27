@@ -1,7 +1,4 @@
-using System;
-using System.Runtime.Serialization;
-
-namespace CovidSimulator
+namespace CovidSimulator.Simulation
 {
     /**
      * <summary>A wrapper to store simulation data, allowing for it to be serialized</summary>
