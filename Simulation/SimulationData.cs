@@ -5,7 +5,6 @@ namespace CovidSimulator.Simulation
      */
     public class SimulationData
     {
-        public int CurrentInfections = 0;
         public int TotalInfections = 0;
         public int MaxInfections = 0;
         public int FurthestPerson = 16;

@@ -14,15 +14,17 @@ namespace CovidSimulator.Simulation
 
         private SimulationData data;
         
+        private int _currentInfections = 0;
+        
         public Simulation(People graph)
         {
             _graph = graph;
             
             data = new SimulationData();
 
-            data.CurrentInfections = FindInfections();
-            data.TotalInfections = data.CurrentInfections;
-            data.MaxInfections = data.CurrentInfections;
+            _currentInfections = FindInfections();
+            data.TotalInfections = _currentInfections;
+            data.MaxInfections = _currentInfections;
             data.FurthestPerson = _graph.NumPeople();
         }
 
@@ -56,7 +58,7 @@ namespace CovidSimulator.Simulation
          */
         public bool RunSimulation()
         {
-            while (data.CurrentInfections > 0)
+            while (_currentInfections > 0)
             {
                 // This is definitely not the fastest way, but it makes it more modular and such.
                 try
@@ -159,9 +161,9 @@ namespace CovidSimulator.Simulation
                                 }
 
                                 otherPerson.Infect();
-                                data.CurrentInfections++;
+                                _currentInfections++;
                                 data.TotalInfections++;
-                                if (data.CurrentInfections > data.MaxInfections) data.MaxInfections = data.CurrentInfections;
+                                if (_currentInfections > data.MaxInfections) data.MaxInfections = _currentInfections;
                             }
                         }
                     }
@@ -183,7 +185,7 @@ namespace CovidSimulator.Simulation
                 if (person.GetInfectionDay() >= CovidStatsConfig.AverageLength)
                 {
                     person.Recover();
-                    data.CurrentInfections--;
+                    _currentInfections--;
                 }
             }
         }
