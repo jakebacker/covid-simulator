@@ -4,7 +4,6 @@ using CovidSimulator.Simulation;
 
 /*
  * TODO:
- * Symptom tracking -> Random symptoms that onset at different times with different severities
  * Implement pre-symptomatic people
  * Symptoms affect infection rate
  * Random non-compliance to rules (maybe not)
