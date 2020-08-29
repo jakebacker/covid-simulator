@@ -203,11 +203,15 @@ namespace CovidSimulator.Simulation
             for (var p = 0; p < _graph.NumPeople(); p++)
             {
                 Person person = _graph.GetPerson(p);
-                person.UpdateInfectionDay();
-                if (person.GetInfectionDay() >= CovidStatsConfig.AverageLength)
+                
+                if (person.IsInfected())
                 {
-                    person.Recover();
-                    _currentInfections--;
+                    person.UpdateInfectionDay();
+                    if (person.GetInfectionDay() >= CovidStatsConfig.AverageLength)
+                    {
+                        person.Recover();
+                        _currentInfections--;
+                    }
                 }
             }
         }
