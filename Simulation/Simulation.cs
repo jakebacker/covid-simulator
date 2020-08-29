@@ -63,6 +63,7 @@ namespace CovidSimulator.Simulation
                 // This is definitely not the fastest way, but it makes it more modular and such.
                 try
                 {
+                    ProcTrackSymptoms();
                     ProcQuarantine();
                     ProcTest();
                     ProcInfectOthers();
@@ -77,6 +78,27 @@ namespace CovidSimulator.Simulation
             }
 
             return true;
+        }
+
+        /**
+         * <summary>Check infected people's symptoms. If they are severe enough, mark for quarantine</summary>
+         */
+        private void ProcTrackSymptoms()
+        {
+            for (var p = 0; p < _graph.NumPeople(); p++)
+            {
+                Person person = _graph.GetPerson(p);
+
+                if (person.IsInfected())
+                {
+                    double num = Program.Rand.NextDouble();
+                    // If their symptoms show enough, mark them for quarantine
+                    if (num < SymptomProminence.SymptomProminences[(int) person.GetSymptom()])
+                    {
+                        person.Quarantine();
+                    }
+                }
+            }
         }
 
         /**

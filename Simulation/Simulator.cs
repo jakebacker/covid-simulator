@@ -120,6 +120,7 @@ namespace CovidSimulator.Simulation
         {
             for (var i = 0; i < numSims; i++)
             {
+                Program.DebugPrint("Simulation " + i);
                 People genGraph = GenerateGraph();
                 Simulation sim = new Simulation(genGraph);
                 
@@ -134,7 +135,7 @@ namespace CovidSimulator.Simulation
                 }
             }
             
-            Console.WriteLine("Simulations Complete.");
+            Console.WriteLine("Simulations Complete.\n");
             
             return true;
         }
@@ -158,6 +159,7 @@ namespace CovidSimulator.Simulation
 
             Console.WriteLine("Average Total Infections: " + averageTotalInfections);
             Console.WriteLine("Average Simulation Length: " + averageSimLength);
+            Console.WriteLine();
         }
 
         public void DisplayResults(int farPerson)

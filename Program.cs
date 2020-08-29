@@ -5,7 +5,9 @@ using CovidSimulator.Simulation;
 /*
  * TODO:
  * Symptom tracking -> Random symptoms that onset at different times with different severities
- * Random non-compliance to rules
+ * Implement pre-symptomatic people
+ * Symptoms affect infection rate
+ * Random non-compliance to rules (maybe not)
  * Input people in a better way
  * Generate random people arrangements
  * Visualize the data much better, allowing for more data. Do this separately using the exported data.
@@ -20,7 +22,7 @@ namespace CovidSimulator
 
         public static readonly Random Rand = new Random();
 
-        private const bool Debug = false;
+        private const bool Debug = true;
 
         static void Main(string[] args)
         {

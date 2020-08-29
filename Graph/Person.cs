@@ -10,6 +10,8 @@ namespace CovidSimulator
     public class Person
     {
         private String _name;
+
+        private Symptom _symptom;
         
         private InfectedStatus _status;
         
@@ -32,6 +34,7 @@ namespace CovidSimulator
         public Person(String name, InfectedStatus status=InfectedStatus.Susceptible, int covidLength=0)
         {
             _name = name;
+            _symptom = Symptom.Asymptomatic;
             _status = status;
             _daysSinceReceived = covidLength;
             _testDay = Program.Rand.Next(0, 7);
@@ -65,6 +68,16 @@ namespace CovidSimulator
         public String GetName()
         {
             return _name;
+        }
+
+        /**
+         * <summary>Get the symptoms this Person is experiencing</summary>
+         *
+         * <returns>The symptoms this Person is experiencing</returns>
+         */
+        public Symptom GetSymptom()
+        {
+            return _symptom;
         }
 
         /**
@@ -133,6 +146,7 @@ namespace CovidSimulator
             {
                 Program.DebugPrint(_name + " was infected");
                 _status = InfectedStatus.Infected;
+                _symptom = SymptomRarity.GetSymptom();
                 UpdateInfectionDay();
             }
         }
