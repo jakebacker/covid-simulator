@@ -24,7 +24,7 @@ namespace CovidSimulator
         /**
          * <summary>
          * Initializes a Person object with a specific name and optionally an infection status and length.
-         * Sets the test day to a random number between [0, 7)
+         * Sets the test day to a random number between [0, 5)
          * </summary>
          *
          * <param name="name">The name of the person being created</param>
@@ -37,7 +37,7 @@ namespace CovidSimulator
             _symptom = Symptom.Asymptomatic;
             _status = status;
             _daysSinceReceived = covidLength;
-            _testDay = Program.Rand.Next(0, 7);
+            _testDay = Program.Rand.Next(0, 5);
         }
 
         /**
