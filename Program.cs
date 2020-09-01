@@ -4,6 +4,7 @@ using CovidSimulator.Simulation;
 
 /*
  * TODO:
+ * Test random testing in addition to routine testing
  * Implement pre-symptomatic people
  * Symptoms affect infection rate
  * Random non-compliance to rules (maybe not)
