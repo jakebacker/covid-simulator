@@ -2,7 +2,6 @@ using System;
 
 namespace CovidSimulator
 {
-    [Obsolete("ConnectionType is deprecated. No longer needed with new People class.")]
     public enum ConnectionType
     {
         Close, // No restriction 
