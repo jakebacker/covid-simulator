@@ -4,12 +4,12 @@ using CovidSimulator.Simulation;
 
 /*
  * TODO:
+ * Improve random graphs by making them more representative
  * Test random testing in addition to routine testing. Note: This doesn't actually matter stats wise. The data would not be significant.
  * Implement pre-symptomatic people
  * Symptoms affect infection rate
  * Random non-compliance to rules (maybe not)
  * Input people in a better way
- * Generate random people arrangements
  * Visualize the data much better, allowing for more data. Do this separately using the exported data.
  * Investigate https://rt.live/ more
  */
