@@ -170,6 +170,48 @@ namespace CovidSimulator.Simulation
             return randPeople;
         }
 
+        
+        // This is like, really, really bad right now. Try to figure out something else
+        /**
+         * <summary>Get the global clustering coefficient for the graph supplied. This is used to determine
+         * the "density" of a graph and then if it is close enough to the data.</summary>
+         * <param name="adj">The adjacency matrix of the graph</param>
+         * <returns>The clustering coefficient of the graph supplied</returns>
+         */
+        public static double GetClustering(int[][] adj)
+        {
+            // Denominator first, because of special condition
+            double denominator = 0;
+
+            for (int i = 0; i < adj.Length; i++)
+            {
+                int k = 0;
+                for (int j = 0; j < adj.Length; j++)
+                {
+                    k += adj[i][j];
+                }
+
+                denominator += k * (k - 1);
+            }
+
+            if (denominator < 1) return 0; // Special case
+
+            double numerator = 0;
+            
+            for (int i = 0; i < adj.Length; i++)
+            {
+                for (int j = 0; j < adj.Length; j++)
+                {
+                    for (int k = 0; k < adj.Length; k++)
+                    {
+                        numerator += adj[i][j] * adj[j][k] * adj[k][i];
+                    }
+                }
+            }
+
+            return numerator / denominator;
+        }
+
 
         /**
          * <summary>
