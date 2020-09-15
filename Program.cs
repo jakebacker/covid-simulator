@@ -26,7 +26,8 @@ namespace CovidSimulator
 
         static void Main(string[] args)
         {
-            data = new ConnectionsData();
+            data = new ConnectionsData(ConnectionsData.GenerateConnData(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) +
+                                                                        "\\input.csv"));
 
             Simulator simulator = new Simulator();
 
