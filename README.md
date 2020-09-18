@@ -13,7 +13,7 @@ No! This simulator is designed to be extremely modular and take into account man
 - [x] Restructure all the code. Make it not jank
 - [ ] Visualize the data much better, allowing for more data
 - [ ] Investigate https://rt.live/ more
-- [ ] Input people in a better way
+- [x] Input people in a better way
 - [ ] Generate random people arrangements
 - [ ] Consider models other than SIR
 - [x] Simulate symptom tracking

@@ -9,7 +9,6 @@ using CovidSimulator.Simulation;
  * Implement pre-symptomatic people
  * Symptoms affect infection rate
  * Random non-compliance to rules (maybe not)
- * Input people in a better way
  * Visualize the data much better, allowing for more data. Do this separately using the exported data.
  * Investigate https://rt.live/ more
  */
