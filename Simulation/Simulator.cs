@@ -143,6 +143,7 @@ namespace CovidSimulator.Simulation
                 farSeq[i] = Program.data.GetNumConnections(ConnectionType.Far);
             }
 
+            // TODO: THIS
             // This may not be entirely accurate. I might need to make this so it generates the close, medium, and far numbers together (something something dependence)
             // After generating a ton of random graphs (see below), select the one that has a density that's closest to the data
             for (int i = 0; i < numPeople; i++)
