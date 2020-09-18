@@ -15,5 +15,5 @@ No! This simulator is designed to be extremely modular and take into account man
 - [ ] Investigate https://rt.live/ more
 - [x] Input people in a better way
 - [ ] Generate random people arrangements
-- [ ] Consider models other than SIR
+- [x] Consider models other than SIR
 - [x] Simulate symptom tracking
