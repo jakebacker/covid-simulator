@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using CovidSimulator.Utility;
 
 namespace CovidSimulator
 {
@@ -23,9 +24,14 @@ namespace CovidSimulator
          */
         public ConnectionsData(int[][] connData)
         {
-            _closeProbs = new double[connData.Length]; // The max length will be connData.Length
-            _mediumProbs = new double[connData.Length];
-            _farProbs = new double[connData.Length];
+            // Note. This is lazy, but makes the code much cleaner
+            int[] maxes = ArrayHelper.FindMaxColumns(connData);
+            
+            _closeProbs = new double[maxes[0]+1];
+            _mediumProbs = new double[maxes[1]+1];
+            _farProbs = new double[maxes[2]+1];
+            
+            
             
             // Count the number of each number of connections of each type
             foreach (int[] c in connData)
@@ -39,16 +45,25 @@ namespace CovidSimulator
             double previousClose = 0;
             double previousMedium = 0;
             double previousFar = 0;
-            for (int i = 0; i < connData.Length; i++)
+
+            // This is gross. I'm sorry
+            for (int i = 0; i < maxes[0]; i++)
             {
                 _closeProbs[i] = previousClose + (_closeProbs[i] / connData.Length);
-                _mediumProbs[i] = previousMedium + (_mediumProbs[i] / connData.Length);
-                _farProbs[i] = previousFar + (_farProbs[i] / connData.Length);
-                
                 previousClose = _closeProbs[i];
+            }
+            for (int i = 0; i < maxes[1]; i++)
+            {
+                _mediumProbs[i] = previousMedium + (_mediumProbs[i] / connData.Length);
                 previousMedium = _mediumProbs[i];
+            }
+            for (int i = 0; i < maxes[2]; i++)
+            {
+                _farProbs[i] = previousFar + (_farProbs[i] / connData.Length);
                 previousFar = _farProbs[i];
             }
+
+            Console.WriteLine();
         }
 
         /**
@@ -98,7 +113,7 @@ namespace CovidSimulator
         {
             string[] lines = System.IO.File.ReadAllLines(file);
 
-            int[][] connData = new int[][lines.Length-1];
+            int[][] connData = new int[lines.Length - 1][];
 
             int index = 0;
             
